@@ -56,7 +56,7 @@
         .card-container {
             perspective: 1000px;
             width: 100%;
-            height: 320px;
+            height: 340px;
             margin-bottom: 25px;
         }
         .card {
@@ -70,7 +70,7 @@
             flex-direction: column;
             justify-content: space-between;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            transition: transform 0.4s ease;
+            transition: transform 0.2s ease;
         }
         .card-level-tag {
             font-size: 0.9rem;
@@ -80,14 +80,14 @@
             text-align: left;
         }
         .card-text-en {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: bold;
             line-height: 1.4;
             color: #222;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .card-text-zh {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: #555;
             line-height: 1.4;
         }
@@ -152,7 +152,15 @@ const cards = {
         { en: "Do you think I fall in love easily?", zh: "你覺得我是個容易陷入愛河的人嗎？" },
         { en: "On a scale of 1-10, how approachable do I seem?", zh: "1到10分，你覺得我看起來有多好相處？" },
         { en: "What character from a TV show or movie do I remind you of?", zh: "我會讓你聯想到哪部影視作品裡的角色？" },
-        { en: "What does my body language say about me right now?", zh: "我目前的肢體語言傳達出了什麼訊息？" }
+        { en: "What does my body language say about me right now?", zh: "我目前的肢體語言傳達出了什麼訊息？" },
+        { en: "What do you think is my biggest weakness?", zh: "你覺得我最大的弱點或缺點是什麼？" },
+        { en: "Do you think I'm a risk-taker or do I play it safe?", zh: "你覺得我是個冒險家，還是個習慣安全牌的人？" },
+        { en: "What impression do I leave on people when they first meet me?", zh: "你覺得我給第一次見面的人留下什麼樣的印象？" },
+        { en: "What do you think my coffee/drink order says about my personality?", zh: "你覺得我平時點飲料的習慣反映出了我怎樣的性格？" },
+        { en: "Do you think I am better at giving advice or receiving it?", zh: "你覺得我比較擅長給別人建議，還是聽取別人的建議？" },
+        { en: "What kind of music do you think I listen to when I'm alone?", zh: "你覺得我一個人時會聽什麼類型的音樂？" },
+        { en: "Do you think I forgive easily?", zh: "你覺得我是個容易原諒別人的人嗎？" },
+        { en: "On a scale of 1-10, how stressed do I seem lately?", zh: "1到10分，你覺得我最近看起來壓力有多大？" }
     ],
     2: [
         { en: "What is a secret you've never told anyone?", zh: "有什麼秘密是你從未跟任何人透露過的？" },
@@ -164,7 +172,15 @@ const cards = {
         { en: "What lesson took you the longest to learn?", zh: "哪一個人生道理是你花了最長時間才學會的？" },
         { en: "What has been your happiest memory from this past year?", zh: "過去這一年裡，你最快樂的回憶是什麼？" },
         { en: "What is something you need to forgive yourself for?", zh: "有什麼事情是你需要原諒自己的？" },
-        { en: "If you could change one decision from your past, what would it be?", zh: "如果你能改變過去的一個決定，那會是什麼？" }
+        { en: "If you could change one decision from your past, what would it be?", zh: "如果你能改變過去的一個決定，那會是什麼？" },
+        { en: "What is something you wish more people knew about you?", zh: "有什麼事情是你希望更多人能夠了解你的？" },
+        { en: "What is a hard truth you've had to accept recently?", zh: "你最近不得不接受的一個殘酷現實或真相是什麼？" },
+        { en: "What is your biggest regret in a friendship or relationship?", zh: "在過去的友情或感情中，你最大的遺憾是什麼？" },
+        { en: "When do you feel most like yourself?", zh: "你在什麼時候最能感到自在、做真實的自己？" },
+        { en: "What is a goal you have that you're scared to fail at?", zh: "你有沒有什麼目標，是自己非常渴望達成卻又很害怕失敗的？" },
+        { en: "What makes you feel instantly cared for?", zh: "什麼樣的小動作或舉動會讓你立刻感到被關心、被在乎？" },
+        { en: "What boundary have you set recently that you're proud of?", zh: "你最近為自己設定了什麼樣的底線／界線，並為此感到自豪？" },
+        { en: "What is the kindest thing someone has ever done for you?", zh: "別人為你做過最溫暖或最善良的一件事是什麼？" }
     ],
     3: [
         { en: "What did you learn about me that surprised you?", zh: "關於我，有什麼事情是讓你感到驚訝或意想不到的？" },
@@ -176,7 +192,14 @@ const cards = {
         { en: "How would you describe me to a stranger?", zh: "你會如何向一個陌生人介紹我？" },
         { en: "What is something you appreciate about me that you haven't said yet?", zh: "有什麼關於我的優點或感謝，是你以前沒對我說過的？" },
         { en: "What challenge do you think I am ready to overcome?", zh: "你覺得我現在已經準備好去克服什麼挑戰了？" },
-        { en: "What can I do to be a better friend/partner to you?", zh: "我做些什麼可以成為對你更好的朋友／伴侶？" }
+        { en: "What can I do to be a better friend/partner to you?", zh: "我做些什麼可以成為對你更好的朋友／伴侶？" },
+        { en: "What is one thing I've said or done that stuck with you?", zh: "我有說過或做過哪件事，讓你印象非常深刻且記到現在？" },
+        { en: "What do you think is the biggest strength of our bond/relationship?", zh: "你覺得我們這段關係／友情中最大的優勢或基石是什麼？" },
+        { en: "What is something you feel we should do together more often?", zh: "有什麼事情是你覺得我們以後可以更常一起做的？" },
+        { en: "What do you admire most about how I handle difficult situations?", zh: "你最欣賞我處理困難或低潮時的什麼態度？" },
+        { en: "If we could plan a trip together anywhere, where should we go?", zh: "如果我們要一起規劃一趟旅行，你最想跟我去哪裡？" },
+        { en: "What is a memory of us that always brings a smile to your face?", zh: "哪一段關於我們之間的回憶，每次想起來都會讓你心頭一暖或會心一笑？" },
+        { en: "What is something you think I need to hear right now?", zh: "你覺得我此時此刻最需要聽到的一句話或鼓勵是什麼？" }
     ]
 };
 
@@ -198,7 +221,7 @@ function drawCard() {
     const item = list[randomIndex];
 
     const card = document.getElementById('card');
-    card.style.transform = 'scale(0.95)';
+    card.style.transform = 'scale(0.96)';
     
     setTimeout(() => {
         document.getElementById('textEn').innerText = item.en;
