@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We're Not Really Strangers - 線上抽卡</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #c0282b;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .level-selector {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+        .level-btn {
+            flex: 1;
+            padding: 10px 5px;
+            border: 2px solid #ffffff;
+            background: transparent;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .level-btn.active, .level-btn:hover {
+            background-color: #ffffff;
+            color: #c0282b;
+        }
+        .card-container {
+            perspective: 1000px;
+            width: 100%;
+            height: 320px;
+            margin-bottom: 25px;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            color: #111111;
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: transform 0.4s ease;
+        }
+        .card-level-tag {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #c0282b;
+            text-transform: uppercase;
+            text-align: left;
+        }
+        .card-text-en {
+            font-size: 1.2rem;
+            font-weight: bold;
+            line-height: 1.4;
+            color: #222;
+            margin-bottom: 10px;
+        }
+        .card-text-zh {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.4;
+        }
+        .card-footer {
+            font-size: 0.8rem;
+            color: #aaa;
+            text-align: right;
+            font-weight: bold;
+        }
+        .draw-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background-color: #111111;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: background 0.2s;
+        }
+        .draw-btn:hover {
+            background-color: #333333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>WNRS 卡牌抽籤</h1>
+
+    <div class="level-selector">
+        <button class="level-btn active" onclick="setLevel(1)">L1 感知</button>
+        <button class="level-btn" onclick="setLevel(2)">L2 連結</button>
+        <button class="level-btn" onclick="setLevel(3)">L3 反思</button>
+    </div>
+
+    <div class="card-container">
+        <div class="card" id="card">
+            <div class="card-level-tag" id="levelTag">LEVEL 1: PERCEPTION</div>
+            <div>
+                <div class="card-text-en" id="textEn">點擊下方按鈕開始抽卡！</div>
+                <div class="card-text-zh" id="textZh">Click the button below to draw a card.</div>
+            </div>
+            <div class="card-footer">WNRS</div>
+        </div>
+    </div>
+
+    <button class="draw-btn" onclick="drawCard()">抽取隨機題目</button>
+</div>
+
+<script>
+const cards = {
+    1: [
+        { en: "Do you think I'm an introvert or an extrovert?", zh: "你覺得我是內向型還是外向型的人？" },
+        { en: "What was your very first impression of me?", zh: "你對我的第一印象是什麼？" },
+        { en: "What is the hardest part about getting to know me?", zh: "你覺得要深入了解我，最難的地方在哪裡？" },
+        { en: "What do you think is my favorite thing to spend money on?", zh: "你覺得我最喜歡把錢花在什麼事物上？" },
+        { en: "Do I seem like a morning person or a night owl?", zh: "我看起來像晨型人還是夜貓子？" },
+        { en: "What do you think my toxic trait is?", zh: "你覺得我性格中的盲點（Toxic Trait）是什麼？" },
+        { en: "Do you think I fall in love easily?", zh: "你覺得我是個容易陷入愛河的人嗎？" },
+        { en: "On a scale of 1-10, how approachable do I seem?", zh: "1到10分，你覺得我看起來有多好相處？" },
+        { en: "What character from a TV show or movie do I remind you of?", zh: "我會讓你聯想到哪部影視作品裡的角色？" },
+        { en: "What does my body language say about me right now?", zh: "我目前的肢體語言傳達出了什麼訊息？" }
+    ],
+    2: [
+        { en: "What is a secret you've never told anyone?", zh: "有什麼秘密是你從未跟任何人透露過的？" },
+        { en: "What are you most afraid of right now?", zh: "你目前最害怕的事情是什麼？" },
+        { en: "When was the last time you cried, and why?", zh: "你最近一次掉眼淚是什麼時候？因為什麼事？" },
+        { en: "What is something you're currently struggling with that you don't talk about?", zh: "有什麼事是你正在默默掙扎、卻很少向人提及的？" },
+        { en: "What part of your life leaves you feeling the most unfulfilled?", zh: "你生活中哪一部分最讓你感到不充實或有遺憾？" },
+        { en: "What is a compliment you wish you received more often?", zh: "有什麼讚美是你希望平時能更常聽到的？" },
+        { en: "What lesson took you the longest to learn?", zh: "哪一個人生道理是你花了最長時間才學會的？" },
+        { en: "What has been your happiest memory from this past year?", zh: "過去這一年裡，你最快樂的回憶是什麼？" },
+        { en: "What is something you need to forgive yourself for?", zh: "有什麼事情是你需要原諒自己的？" },
+        { en: "If you could change one decision from your past, what would it be?", zh: "如果你能改變過去的一個決定，那會是什麼？" }
+    ],
+    3: [
+        { en: "What did you learn about me that surprised you?", zh: "關於我，有什麼事情是讓你感到驚訝或意想不到的？" },
+        { en: "How do you think our relationship will change after today?", zh: "你覺得經過今天的對話後，我們的關係會發生什麼變化？" },
+        { en: "What do you think is my greatest strength?", zh: "你覺得我最大的優點／強項是什麼？" },
+        { en: "What is something I did today that made you feel comfortable?", zh: "我今天做的哪件事讓你感到輕鬆自在？" },
+        { en: "Based on what you learned about me, what advice would you give me?", zh: "根據你今天對我的了解，你會給我什麼建議？" },
+        { en: "What is one thing you think we have in common?", zh: "你覺得我們之間最大的共通點是什麼？" },
+        { en: "How would you describe me to a stranger?", zh: "你會如何向一個陌生人介紹我？" },
+        { en: "What is something you appreciate about me that you haven't said yet?", zh: "有什麼關於我的優點或感謝，是你以前沒對我說過的？" },
+        { en: "What challenge do you think I am ready to overcome?", zh: "你覺得我現在已經準備好去克服什麼挑戰了？" },
+        { en: "What can I do to be a better friend/partner to you?", zh: "我做些什麼可以成為對你更好的朋友／伴侶？" }
+    ]
+};
+
+let currentLevel = 1;
+
+function setLevel(level) {
+    currentLevel = level;
+    document.querySelectorAll('.level-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx + 1 === level);
+    });
+    const tags = { 1: "LEVEL 1: PERCEPTION", 2: "LEVEL 2: CONNECTION", 3: "LEVEL 3: REFLECTION" };
+    document.getElementById('levelTag').innerText = tags[level];
+    drawCard();
+}
+
+function drawCard() {
+    const list = cards[currentLevel];
+    const randomIndex = Math.floor(Math.random() * list.length);
+    const item = list[randomIndex];
+
+    const card = document.getElementById('card');
+    card.style.transform = 'scale(0.95)';
+    
+    setTimeout(() => {
+        document.getElementById('textEn').innerText = item.en;
+        document.getElementById('textZh').innerText = item.zh;
+        card.style.transform = 'scale(1)';
+    }, 150);
+}
+</script>
+</body>
+</html>
